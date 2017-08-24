@@ -1,0 +1,59 @@
+{
+  "name": "vue-compose",
+  "version": "0.1.0",
+  "description": "Create awesome Vue HOCs",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "ava",
+    "debug": "inspect node_modules/ava/profile",
+    "build": "babel src/ -d dist/ --source-maps",
+    "prepublish": "npm test && npm run lint && npm run build",
+    "flow": "flow",
+    "eslint": "eslint src --fix",
+    "lint": "npm run eslint && npm run flow"
+  },
+  "ava": {
+    "files": [
+      "spec/**/*.spec.js"
+    ],
+    "source": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "./spec/hooks.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackmellis/vue-compose.git"
+  },
+  "author": "Jack Ellis",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jackmellis/vue-compose/issues"
+  },
+  "homepage": "https://github.com/jackmellis/vue-compose#readme",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "browser-env": "^3.1.2",
+    "eslint": "^4.5.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "flow-bin": "^0.53.1",
+    "inspect-process": "^0.5.0",
+    "module-alias": "^2.0.1",
+    "require-extension-hooks": "^0.3.0",
+    "require-extension-hooks-babel": "^0.1.1",
+    "sinon": "^3.2.1",
+    "vue": "^2.4.2",
+    "vuenit": "^1.0.0"
+  },
+  "dependencies": {
+    "vue-hoc": "file:../vue-hoc"
+  }
+}
