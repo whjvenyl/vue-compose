@@ -7,10 +7,14 @@ import withHooks from './hocs/withHooks';
 import withClass from './hocs/withClass';
 import withStyle from './hocs/withStyle';
 import withData from './hocs/withData';
+import withVuex from './hocs/withVuex';
 
 import withComputed from './mutators/withComputed';
+import withMethods from './mutators/withMethods';
+import setName from './mutators/setName';
 
 import componentFromProp from './utils/componentFromProp';
+import componentFromSlot from './utils/componentFromSlot';
 import { compose, pipe } from './utils/compose';
 
 export {
@@ -23,8 +27,14 @@ export {
   withClass,
   withStyle,
   withData,
+  withVuex,
+
   withComputed,
+  withMethods,
+  setName,
+
   componentFromProp,
+  componentFromSlot,
   compose,
   pipe,
 };
@@ -39,8 +49,14 @@ export default {
   withClass,
   withStyle,
   withData,
+  withVuex,
+
   withComputed,
+  withMethods,
+  setName,
+
   componentFromProp,
+  componentFromSlot,
   compose,
   pipe,
 };

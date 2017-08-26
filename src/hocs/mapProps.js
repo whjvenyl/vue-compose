@@ -1,5 +1,6 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
+import { wrapName } from '../mutators/setName';
 import type { MapProps } from '../annotations';
 
 const mapProps: MapProps = (mapper, ctor) => {
@@ -8,7 +9,8 @@ const mapProps: MapProps = (mapper, ctor) => {
       mapProps(){
         return mapper.call(this, this.$props);
       }
-    }
+    },
+    name: wrapName('mapProps', ctor),
   };
   const renderWith = {
     props(){

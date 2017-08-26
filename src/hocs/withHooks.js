@@ -1,9 +1,12 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
+import { wrapName } from '../mutators/setName';
 import type { WithHooks } from '../annotations';
 
 const withHooks: WithHooks = (hooks, ctor) => {
-  const definiteHooks = {};
+  const definiteHooks = {
+    name: wrapName('withHooks', ctor),
+  };
   Object.keys(hooks).forEach(key => {
     const value = hooks[key];
     if (typeof value === 'function'){

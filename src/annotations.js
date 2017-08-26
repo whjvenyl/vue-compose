@@ -77,6 +77,16 @@ export type WithData = (
   ctor: Component
 ) => Component;
 
+export type WithVuex = (
+  options: {
+    state?: Object,
+    getters?: Object,
+    mutations?: Object,
+    actions?: Object,
+  },
+  ctor: Component,
+) => Component;
+
 // Mutates a component with computed properties
 export type WithComputed = (
   computed: {
@@ -85,13 +95,26 @@ export type WithComputed = (
   ctor: Component
 ) => Component;
 
-export type ComponentFromProp = (
-  propName: string | Component,
+// Mutates a component with methods
+export type WithMethods = (
+  methods: {
+    [name: string]: Function
+  },
+  ctor: Component
 ) => Component;
 
 export type SetName = (
   name: string,
   ctor: Component
+) => Component;
+
+// Utilities
+export type ComponentFromProp = (
+  propName: string | Component,
+) => Component;
+
+export type ComponentFromSlot = (
+  componentOptions?: Object
 ) => Component;
 
 export type Compose = (

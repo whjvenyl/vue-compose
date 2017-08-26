@@ -1,14 +1,14 @@
 // @flow
 import { courier } from 'vue-hoc';
-import type { WithComputed } from '../annotations';
+import type { WithMethods } from '../annotations';
 import getMixins from '../utils/getMixins';
 
-const withComputed: WithComputed = (computed, ctor) => {
+const withMethods: WithMethods = (methods, ctor) => {
   const mixins = getMixins(ctor);
   mixins.push({
-    computed,
+    methods,
   });
   return ctor;
 };
 
-export default courier(2, withComputed);
+export default courier(2, withMethods);

@@ -1,5 +1,6 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
+import { wrapName } from '../mutators/setName';
 import type { AcceptProps } from '../annotations';
 
 const acceptProps: AcceptProps = (props, ctor) => {
@@ -7,7 +8,8 @@ const acceptProps: AcceptProps = (props, ctor) => {
     props = [props];
   }
   return createHOC(ctor, {
-    props: props
+    props: props,
+    name: wrapName('acceptProps', ctor),
   });
 };
 

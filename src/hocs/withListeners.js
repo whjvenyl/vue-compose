@@ -1,9 +1,12 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
+import { wrapName } from '../mutators/setName';
 import type { WithListeners } from '../annotations';
 
 const withListeners: WithListeners = (listeners, ctor) => {
-  return createHOC(ctor, null, {
+  return createHOC(ctor, {
+    name: wrapName('withListeners', ctor),
+  }, {
     listeners,
   });
 };

@@ -3,6 +3,7 @@ import {mount} from 'vuenit';
 import {acceptProps, mapProps} from 'vue-compose';
 
 const Component = {
+  name: 'MyComponent',
   props: ['propA', 'propB', 'propC'],
   template: `<div>
     <span id="a">{{propA}}</span>

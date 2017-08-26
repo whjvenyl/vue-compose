@@ -6,7 +6,6 @@ const componentFromProp: ComponentFromProp = (
 ) => {
   return {
     name: 'ComponentFromProp',
-    // functional: true,
     props: {
       [propName]: {
         type: [String, Object, Function],
@@ -15,7 +14,6 @@ const componentFromProp: ComponentFromProp = (
     },
     render(h){
       const C = this[propName];
-      // return h(C, context.data, context.children);
       return createRenderFn(C).call(this, h);
     }
   };

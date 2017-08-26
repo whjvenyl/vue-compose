@@ -1,6 +1,6 @@
 import test from 'ava';
 import {mount} from 'vuenit';
-import {withProps, withComputed, compose} from 'vue-compose';
+import {withProps, withMethods, compose} from 'vue-compose';
 
 const C = {
   name: 'BaseComponent',
@@ -9,19 +9,20 @@ const C = {
 };
 mount(C);
 
-test('adds computed properties to an existing hoc', t => {
+test('adds methods to an existing hoc', t => {
+  debugger; //eslint-disable-line
   const enhanced = compose(
-    withComputed({
+    withMethods({
       compA(){
         return 'foo';
       },
       compB(){
-        return this.compA;
+        return this.compA();
       }
     }),
     withProps({
       propA(){
-        return this.compB;
+        return this.compB();
       }
     }),
   )(C);

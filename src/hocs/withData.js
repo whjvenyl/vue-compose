@@ -1,5 +1,6 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
+import { wrapName } from '../mutators/setName';
 import type { WithData } from '../annotations';
 
 const withData: WithData = (data, ctor) => {
@@ -43,6 +44,7 @@ const withData: WithData = (data, ctor) => {
 
   const hoc = createHOC(ctor, {
     data: dataCreator,
+    name: wrapName('withData', ctor),
   }, {
     listeners,
     props: propsCreator,

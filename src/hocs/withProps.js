@@ -1,14 +1,16 @@
 // @flow
 import { createHOC, courier } from 'vue-hoc';
 import mapProps from './mapProps';
+import { wrapName } from '../mutators/setName';
 import type { WithProps } from '../annotations';
 
 const withPropsFn = (ctor, mapper) => {
-  return mapProps(function (props) {
+  return  mapProps(function (props) {
     const mapped = mapper.call(this, props);
     return Object.assign({}, props, mapped);
   }, ctor);
 };
+
 const withComputedProps = (ctor, keys, allProps) => {
   const computed = {};
   const props = {};
@@ -25,11 +27,12 @@ const withComputedProps = (ctor, keys, allProps) => {
   });
   return createHOC(ctor, { computed }, { props });
 };
+
 const withStaticProps = (ctor, props) => {
   return createHOC(ctor, { functional: true }, { props });
 };
 
-const withProps: WithProps = (mapper, ctor) => {
+const getHoc = (mapper, ctor) => {
   if (typeof mapper === 'function'){
     return withPropsFn(ctor, mapper);
   }
@@ -38,6 +41,12 @@ const withProps: WithProps = (mapper, ctor) => {
     return withComputedProps(ctor, keys, mapper);
   }
   return withStaticProps(ctor, mapper);
+};
+
+const withProps: WithProps = (mapper, ctor) => {
+  const hoc = getHoc(mapper, ctor);
+  hoc.name = wrapName('withProps', ctor);
+  return hoc;
 };
 
 export default courier(2, withProps);
