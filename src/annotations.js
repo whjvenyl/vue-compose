@@ -77,16 +77,6 @@ export type WithData = (
   ctor: Component
 ) => Component;
 
-export type WithVuex = (
-  options: {
-    state?: Object,
-    getters?: Object,
-    mutations?: Object,
-    actions?: Object,
-  },
-  ctor: Component,
-) => Component;
-
 // Mutates a component with computed properties
 export type WithComputed = (
   computed: {
