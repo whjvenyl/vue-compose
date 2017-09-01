@@ -31,11 +31,18 @@ export type AcceptProps = (
 
 // Adds event listeners to the component
 // each listener is added to the component as a method
-export type WithListeners = (
-  listeners: {
+export type WithHandlers = (
+  handlers: {
     [handlerName: string]: (...args: Array<any>) => any
   },
   ctor: Component
+) => Component;
+
+// Adds event listeners but allows them to bubble up
+export type WithPassive = (
+  handlers: {
+    [handlerName: string]: (...args: Array<any>) => any
+  },
 ) => Component;
 
 // Adds hooks to the component i.e. created, mounted

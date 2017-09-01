@@ -1,6 +1,6 @@
 import test from 'ava';
 import {mount} from 'vuenit';
-import {withStyle} from 'vue-compose';
+import {withStyle, withProps, compose} from 'vue-compose';
 
 const Component = {
   props: ['className'],
@@ -67,6 +67,28 @@ test('can be chained to other withClasses', t => {
 
   t.is(el.style.color, 'red');
   t.is(el.style.backgroundColor, 'blue');
+  t.is(el.style.width, '100%');
+});
+
+test('can be chained with other hocs', t => {
+  const enhanced = compose(
+    withStyle({
+      width: '100%'
+    }),
+    withStyle(() => ({
+      height: '400px'
+    })),
+    withProps({
+      foo: 'bah'
+    }),
+    withStyle({
+      color: () => 'green'
+    }),
+  )(Component);
+  const el = mount(enhanced).$el;
+
+  t.is(el.style.color, 'green');
+  t.is(el.style.height, '400px');
   t.is(el.style.width, '100%');
 });
 

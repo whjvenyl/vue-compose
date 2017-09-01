@@ -29,7 +29,7 @@ const withComputedProps = (ctor, keys, allProps) => {
 };
 
 const withStaticProps = (ctor, props) => {
-  return createHOC(ctor, { functional: true }, { props });
+  return createHOC(ctor, null, { props });
 };
 
 const getHoc = (mapper, ctor) => {

@@ -2,7 +2,8 @@ import mapProps from './hocs/mapProps';
 import withProps from './hocs/withProps';
 import defaultProps from './hocs/defaultProps';
 import acceptProps from './hocs/acceptProps';
-import withListeners from './hocs/withListeners';
+import withHandlers from './hocs/withHandlers';
+import withPassive from './hocs/withPassive';
 import withHooks from './hocs/withHooks';
 import withClass from './hocs/withClass';
 import withStyle from './hocs/withStyle';
@@ -21,7 +22,8 @@ export {
   withProps,
   defaultProps,
   acceptProps,
-  withListeners,
+  withHandlers,
+  withPassive,
   withHooks,
   withClass,
   withStyle,
@@ -42,7 +44,8 @@ export default {
   withProps,
   defaultProps,
   acceptProps,
-  withListeners,
+  withHandlers,
+  withPassive,
   withHooks,
   withClass,
   withStyle,

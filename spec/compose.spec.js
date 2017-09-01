@@ -5,7 +5,7 @@ import {
   compose,
   defaultProps,
   withProps,
-  withListeners,
+  withHandlers,
   withData,
   withClass,
   withStyle,
@@ -37,7 +37,7 @@ test('compose multiple hocs together', t => {
         propB: props.propA + ' B',
       };
     }),
-    withListeners({
+    withHandlers({
       someEvent: spy,
     }),
     withClass(['classB']),

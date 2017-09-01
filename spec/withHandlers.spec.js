@@ -1,16 +1,16 @@
 import test from 'ava';
 import sinon from 'sinon';
 import {mount} from 'vuenit';
-import {withListeners} from 'vue-compose';
+import {withHandlers} from 'vue-compose';
 const Component = {
   name: 'BaseComponent',
   template: '<div></div>'
 };
 mount(Component);
 
-test('adds listeners to the component', t => {
+test('adds handlers to the component', t => {
   const spy = sinon.spy();
-  const enhance = withListeners({
+  const enhance = withHandlers({
     customEvent: spy,
   });
   const enhanced = enhance(Component);
@@ -21,9 +21,9 @@ test('adds listeners to the component', t => {
   t.true(spy.called);
 });
 
-test('prevents listeners bubbling up', t => {
+test('prevents handlers bubbling up', t => {
   const spy = sinon.spy();
-  const enhanced = withListeners({
+  const enhanced = withHandlers({
     customEvent: () => {},
   }, Component);
   const vm = mount({
@@ -44,7 +44,7 @@ test('can bubble events up', t => {
   const spy2 = sinon.stub().callsFake(function () {
     this.$emit('customEvent');
   });
-  const enhanced = withListeners({
+  const enhanced = withHandlers({
     customEvent: spy2,
   }, Component);
   const vm = mount({
@@ -59,4 +59,24 @@ test('can bubble events up', t => {
 
   t.true(spy1.called);
   t.true(spy2.called);
+});
+
+test('handlers can call other handlers', t => {
+  const spy = sinon.spy();
+
+  const enhanced = withHandlers({
+    first: spy,
+    second(){
+      this.handleFirst();
+    }
+  }, Component);
+
+  const vm = mount({
+    template: '<enhanced/>',
+    components: {enhanced},
+  });
+
+  vm.$find('BaseComponent').$emit('second');
+
+  t.true(spy.called);
 });

@@ -1,4 +1,3 @@
-import { createRenderFn } from 'vue-hoc';
 import type { ComponentFromSlot } from '../annotations';
 
 const componentFromSlot: ComponentFromSlot = (options = {}) => {
@@ -13,6 +12,10 @@ const componentFromSlot: ComponentFromSlot = (options = {}) => {
       const slot = children[0];
       const tag = slot.tag;
       const data = Object.assign({}, this, slot.data);
+
+      if (typeof tag !== 'string'){
+        throw new Error('The root element of ComponentFromSlot must be a HTML element');
+      }
 
       return h(tag, data, slot.children);
     }
