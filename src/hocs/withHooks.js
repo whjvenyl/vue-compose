@@ -1,9 +1,7 @@
-// @flow
 import { createHOC, courier } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { WithHooks } from '../annotations';
 
-const withHooks: WithHooks = (hooks, ctor) => {
+const withHooks = (hooks, ctor) => {
   const definiteHooks = {
     name: wrapName('withHooks', ctor),
   };

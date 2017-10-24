@@ -1,9 +1,6 @@
 import { createRenderFn } from 'vue-hoc';
-import type { ComponentFromProp } from '../annotations';
 
-const componentFromProp: ComponentFromProp = (
-  propName: string | Object | Function
-) => {
+const componentFromProp = (propName) => {
   return {
     name: 'ComponentFromProp',
     props: {

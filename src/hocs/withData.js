@@ -1,9 +1,7 @@
-// @flow
 import { createHOC, courier } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { WithData } from '../annotations';
 
-const withData: WithData = (data, ctor) => {
+const withData = (data, ctor) => {
   const keys = Object.keys(data);
   const listeners = {};
 

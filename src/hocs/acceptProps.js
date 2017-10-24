@@ -1,9 +1,7 @@
-// @flow
 import { createHOC, courier } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { AcceptProps } from '../annotations';
 
-const acceptProps: AcceptProps = (props, ctor) => {
+const acceptProps = (props, ctor) => {
   if (typeof props === 'string'){
     props = [props];
   }

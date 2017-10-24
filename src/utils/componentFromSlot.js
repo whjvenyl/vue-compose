@@ -1,7 +1,7 @@
-import type { ComponentFromSlot } from '../annotations';
+import assign from 'vue-hoc/dist/assign';
 
-const componentFromSlot: ComponentFromSlot = (options = {}) => {
-  return Object.assign({
+const componentFromSlot = (options = {}) => {
+  return assign({
     name: 'ComponentFromSlot',
     render(h){
       const children = this.$slots.default; //children;

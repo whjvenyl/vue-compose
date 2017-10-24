@@ -1,9 +1,7 @@
-// @flow
 import { createHOC, courier } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { WithClass } from '../annotations';
 
-const withClass: WithClass = (classes, ctor) => {
+const withClass = (classes, ctor) => {
   return createHOC(ctor, {
     name: wrapName('withClass', ctor),
   }, {

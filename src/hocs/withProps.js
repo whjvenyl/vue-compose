@@ -1,8 +1,6 @@
-// @flow
 import { createHOC, courier } from 'vue-hoc';
 import mapProps from './mapProps';
 import { wrapName } from '../mutators/setName';
-import type { WithProps } from '../annotations';
 
 const withPropsFn = (ctor, mapper) => {
   return  mapProps(function (props) {
@@ -43,7 +41,7 @@ const getHoc = (mapper, ctor) => {
   return withStaticProps(ctor, mapper);
 };
 
-const withProps: WithProps = (mapper, ctor) => {
+const withProps = (mapper, ctor) => {
   const hoc = getHoc(mapper, ctor);
   hoc.name = wrapName('withProps', ctor);
   return hoc;
