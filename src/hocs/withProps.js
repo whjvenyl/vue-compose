@@ -1,3 +1,4 @@
+import assign from '../utils/assign';
 import { createHOC } from 'vue-hoc';
 import mapProps from './mapProps';
 import { wrapName } from '../mutators/setName';
@@ -5,7 +6,7 @@ import { wrapName } from '../mutators/setName';
 const withPropsFn = (ctor, mapper) => {
   return  mapProps(function (props) {
     const mapped = mapper.call(this, props);
-    return Object.assign({}, props, mapped);
+    return assign({}, props, mapped);
   })(ctor);
 };
 
@@ -23,11 +24,23 @@ const withComputedProps = (ctor, keys, allProps) => {
     }
     props[key] = value;
   });
-  return createHOC(ctor, { computed }, { props });
+  const hoc = createHOC(ctor, { computed }, { props });
+  keys.forEach((key) => {
+    if (hoc.props[key] && hoc.props[key].required) {
+      hoc.props[key] = assign(hoc.props[key], { required: false });
+    }
+  });
+  return hoc;
 };
 
 const withStaticProps = (ctor, props) => {
-  return createHOC(ctor, null, { props });
+  const hoc =  createHOC(ctor, null, { props });
+  Object.keys(props).forEach((key) => {
+    if (hoc.props[key] && hoc.props[key].required) {
+      hoc.props[key] = assign(hoc.props[key], { required: false });
+    }
+  });
+  return hoc;
 };
 
 const getHoc = (mapper, ctor) => {

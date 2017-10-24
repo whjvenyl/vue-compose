@@ -13,7 +13,6 @@ const Component = {
 mount(Component);
 
 test('maps props to new values (object)', t => {
-  debugger; //eslint-disable-line
   const enhance = withProps({
     propA: 'enhancedPropA',
     propC: 'enhancedPropC'
@@ -157,4 +156,29 @@ test('prop changes are still mapped', async t => {
   t.is(a, 'a!');
   t.is(b, 'b');
   t.is(c, 'c?');
+});
+
+test('overwrites required prop setting', t => {
+  const C = Object.assign({}, Component, {
+    props: {
+      propA: {
+        required: true,
+      },
+      propB: {
+        required: true,
+      },
+      propC: {
+        required: true,
+      },
+    },
+  });
+
+  const A = withProps({
+    propA: () => 'A',
+    propB: () => undefined,
+  })(C);
+
+  t.is(A.props.propA.required, false);
+  t.is(A.props.propB.required, false);
+  t.is(A.props.propC.required, true);
 });

@@ -1,4 +1,4 @@
-import assign from 'vue-hoc/dist/assign';
+import assign from '../utils/assign';
 
 const componentFromSlot = (options = {}) => {
   return assign({

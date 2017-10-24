@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "ava",
+    "watch": "ava --watch",
     "debug": "inspect node_modules/ava/profile",
     "build": "babel src/ -d dist/ --source-maps",
     "prepublishOnly": "npm test -- --verbose && npm run lint && npm run build",

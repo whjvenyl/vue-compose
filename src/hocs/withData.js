@@ -1,5 +1,5 @@
 import { createHOC } from 'vue-hoc';
-import assign from 'vue-hoc/dist/assign';
+import assign from '../utils/assign';
 import { wrapName } from '../mutators/setName';
 
 const withData = (data) => {
