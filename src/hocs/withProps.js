@@ -1,4 +1,4 @@
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
 import mapProps from './mapProps';
 import { wrapName } from '../mutators/setName';
 
@@ -6,7 +6,7 @@ const withPropsFn = (ctor, mapper) => {
   return  mapProps(function (props) {
     const mapped = mapper.call(this, props);
     return Object.assign({}, props, mapped);
-  }, ctor);
+  })(ctor);
 };
 
 const withComputedProps = (ctor, keys, allProps) => {
@@ -41,10 +41,10 @@ const getHoc = (mapper, ctor) => {
   return withStaticProps(ctor, mapper);
 };
 
-const withProps = (mapper, ctor) => {
+const withProps = (mapper) => (ctor) => {
   const hoc = getHoc(mapper, ctor);
-  hoc.name = wrapName('withProps', ctor);
+  hoc.name = wrapName('withProps')(ctor);
   return hoc;
 };
 
-export default courier(2, withProps);
+export default withProps;

@@ -1,7 +1,6 @@
-import { courier } from 'vue-hoc';
 import getMixins from '../utils/getMixins';
 
-const withComputed = (computed, ctor) => {
+const withComputed = (computed) => (ctor) => {
   const mixins = getMixins(ctor);
   mixins.push({
     computed,
@@ -9,4 +8,4 @@ const withComputed = (computed, ctor) => {
   return ctor;
 };
 
-export default courier(2, withComputed);
+export default withComputed;

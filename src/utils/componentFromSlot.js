@@ -11,7 +11,7 @@ const componentFromSlot = (options = {}) => {
 
       const slot = children[0];
       const tag = slot.tag;
-      const data = Object.assign({}, this, slot.data);
+      const data = assign({}, this, slot.data);
 
       if (typeof tag !== 'string'){
         throw new Error('The root element of ComponentFromSlot must be a HTML element');

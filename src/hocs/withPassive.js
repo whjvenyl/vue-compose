@@ -1,8 +1,7 @@
-import { courier } from 'vue-hoc';
 import withHandlers from './withHandlers';
 import { wrapName } from '../mutators/setName';
 
-const withPassive = (passives, ctor) => {
+const withPassive = (passives) => {
   const handlers = {};
   Object.keys(passives).forEach(key => {
     handlers[key] = function (...args) {
@@ -11,10 +10,12 @@ const withPassive = (passives, ctor) => {
     };
   });
 
-  const hoc = withHandlers(handlers, ctor);
-  hoc.name = wrapName('withPassive', ctor);
+  return (ctor) => {
+    const hoc = withHandlers(handlers)(ctor);
+    hoc.name = wrapName('withPassive')(ctor);
 
-  return hoc;
+    return hoc;
+  };
 };
 
-export default courier(2, withPassive);
+export default withPassive;

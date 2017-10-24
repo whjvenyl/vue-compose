@@ -1,6 +1,4 @@
-import { courier } from 'vue-hoc';
-
-const setName = (name, ctor) => {
+const setName = (name) => (ctor) => {
   const target = typeof ctor === 'function' ?
     ctor.options :
     ctor;
@@ -18,9 +16,9 @@ export const getName = (ctor) => {
   return target.name || '';
 };
 
-export const wrapName = (name, ctor) => {
+export const wrapName = (name) => (ctor) => {
   const cname = getName(ctor) || 'Anonymous';
   return `${name}-${cname}`;
 };
 
-export default courier(2, setName);
+export default setName;

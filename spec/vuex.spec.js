@@ -14,7 +14,6 @@ const C = {
   props: ['name'],
   methods: {
     handleChange(evt){
-      debugger; //eslint-disable-line
       this.$emit('changeName', evt.target.value);
     },
   },

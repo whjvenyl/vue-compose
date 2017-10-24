@@ -23,7 +23,7 @@ test('creates a hoc with a data property', t => {
     test: {
       initialValue: 'foo',
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
 
   t.is(vm.test, 'foo');
@@ -33,7 +33,7 @@ test('passes the data property to the original component', t => {
     test: {
       initialValue: 'foo'
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 
@@ -45,7 +45,7 @@ test('passes the data property under another prop name', t => {
       initialValue: 'foo',
       prop: 'vest',
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 
@@ -57,7 +57,7 @@ test('sets an initial value with a function', t => {
     test: {
       initialValue: () => 'foo',
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 
@@ -68,7 +68,7 @@ test('adds a listener to the component', t => {
     test: {
       initialValue: 'foo',
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 
@@ -82,7 +82,7 @@ test('adds a custom listener name to the component', t => {
       initialValue: 'foo',
       listener: 'updateVest',
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 
@@ -99,7 +99,7 @@ test('calls a custom handler when the listener is emitted', t => {
       initialValue: 'foo',
       handler: spy,
     }
-  }, C);
+  })(C);
   const vm = mount(enhanced);
   const child = vm.$findOne(C);
 

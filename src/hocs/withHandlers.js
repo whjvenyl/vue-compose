@@ -1,7 +1,7 @@
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
 
-const withHandlers = (handlers, ctor) => {
+const withHandlers = (handlers) => {
   const listeners = {};
   const methods = {};
 
@@ -13,12 +13,12 @@ const withHandlers = (handlers, ctor) => {
     };
   });
 
-  return createHOC(ctor, {
-    name: wrapName('withHandlers', ctor),
+  return (ctor) => createHOC(ctor, {
+    name: wrapName('withHandlers')(ctor),
     methods,
   }, {
     listeners,
   });
 };
 
-export default courier(2, withHandlers);
+export default withHandlers;

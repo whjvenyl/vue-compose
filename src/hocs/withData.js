@@ -1,7 +1,8 @@
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
+import assign from 'vue-hoc/dist/assign';
 import { wrapName } from '../mutators/setName';
 
-const withData = (data, ctor) => {
+const withData = (data) => {
   const keys = Object.keys(data);
   const listeners = {};
 
@@ -24,7 +25,7 @@ const withData = (data, ctor) => {
   };
 
   const propsCreator = function(ownerProps) {
-    const result = Object.assign({}, ownerProps);
+    const result = assign({}, ownerProps);
     keys.forEach(key => {
       const propName = data[key].prop || key;
       result[propName] = this[key];
@@ -40,21 +41,23 @@ const withData = (data, ctor) => {
     };
   });
 
-  const hoc = createHOC(ctor, {
-    data: dataCreator,
-    name: wrapName('withData', ctor),
-  }, {
-    listeners,
-    props: propsCreator,
-  });
+  return (ctor) => {
+    const hoc = createHOC(ctor, {
+      data: dataCreator,
+      name: wrapName('withData')(ctor),
+    }, {
+      listeners,
+      props: propsCreator,
+    });
 
-  keys.forEach(key => {
-    if (hoc.props[key]){
-      delete hoc.props[key];
-    }
-  });
+    keys.forEach(key => {
+      if (hoc.props[key]){
+        delete hoc.props[key];
+      }
+    });
 
-  return hoc;
+    return hoc;
+  };
 };
 
-export default courier(2, withData);
+export default withData;

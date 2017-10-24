@@ -21,7 +21,7 @@ test('adds conditional styles to the base component', t => {
     width: '50%',
     color: false,
     backgroundColor: 'blue',
-  }, Component);
+  })(Component);
   const el = mount(enhanced).$el;
 
   t.is(el.style.width, '50%');
@@ -32,7 +32,7 @@ test('adds conditional styles to the base component', t => {
 test('adds styles from a function', t => {
   const enhanced = withStyle(function(){
     return this.className;
-  }, Component);
+  })(Component);
   const el = mount(enhanced, {
     props: {
       className: {
@@ -46,7 +46,7 @@ test('adds styles from a function', t => {
 test('adds styles from a getter', t => {
   const enhanced = withStyle({
     color: () => 'red',
-  }, Component);
+  })(Component);
   const el = mount(enhanced).$el;
 
   t.is(el.style.color, 'red');
@@ -61,8 +61,8 @@ test('does not overwrite original styles', t => {
 });
 
 test('can be chained to other withClasses', t => {
-  const enhanced1 = withStyle({color:'red'}, Component);
-  const enhanced2 = withStyle({backgroundColor:'blue'}, enhanced1);
+  const enhanced1 = withStyle({color:'red'})(Component);
+  const enhanced2 = withStyle({backgroundColor:'blue'})(enhanced1);
   const el = mount(enhanced2).$el;
 
   t.is(el.style.color, 'red');
@@ -93,8 +93,8 @@ test('can be chained with other hocs', t => {
 });
 
 test('passes through parent classes', t => {
-  const enhanced1 = withStyle('color:red', Component);
-  const enhanced2 = withStyle('backgroundColor:blue', enhanced1);
+  const enhanced1 = withStyle('color:red')(Component);
+  const enhanced2 = withStyle('backgroundColor:blue')(enhanced1);
   const el = mount({
     template: '<enhanced2 style="opacity:0.5;"/>',
     components: {

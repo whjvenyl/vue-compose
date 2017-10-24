@@ -1,21 +1,22 @@
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
 
-const mapProps = (mapper, ctor) => {
+export default (mapper) => {
   const options = {
     computed: {
       mapProps(){
         return mapper.call(this, this.$props);
       }
     },
-    name: wrapName('mapProps', ctor),
   };
   const renderWith = {
     props(){
       return this.mapProps;
     }
   };
-  return createHOC(ctor, options, renderWith);
+  return (ctor) => {
+    const hoc = createHOC(ctor, options, renderWith);
+    hoc.name = wrapName('mapProps')(hoc);
+    return hoc;
+  };
 };
-
-export default courier(2, mapProps);

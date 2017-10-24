@@ -91,12 +91,12 @@ test('prop changes are still mapped', async t => {
 test('can be used in conjunction with defaultProps', t => {
   const A = withProps({
     propA: 'A'
-  }, Component);
+  })(Component);
   const B = defaultProps({
     propA: 'defaultA',
     propB: 'defaultB',
     propC: 'defaultC'
-  }, A);
+  })(A);
   const vm = mount(B);
 
   let a = vm.$findOne('#a').$text;
