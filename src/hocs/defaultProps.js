@@ -1,21 +1,26 @@
-// @flow
-import { courier } from 'vue-hoc';
+import assign from '../utils/assign';
 import mapProps from './mapProps';
 import { wrapName } from '../mutators/setName';
-import type { DefaultProps } from '../annotations';
 
-const defaultProps: DefaultProps = (defaults, ctor) => {
+const defaultProps = (defaults) => (ctor) => {
+  const keys = Object.keys(defaults);
+
   const hoc = mapProps((props) => {
-    const result = Object.assign({}, props);
-    Object.keys(defaults).forEach(key => {
+    const result = assign({}, props);
+    keys.forEach(key => {
       if (result[key] === undefined){
         result[key] = defaults[key];
       }
     });
     return result;
-  }, ctor);
-  hoc.name = wrapName('defaultProps', ctor);
+  })(ctor);
+  hoc.name = wrapName('defaultProps')(ctor);
+  keys.forEach((key) => {
+    if (hoc.props[key] && hoc.props[key].required) {
+      hoc.props[key] = assign(hoc.props[key], { required: false });
+    }
+  });
   return hoc;
 };
 
-export default courier(2, defaultProps);
+export default defaultProps;

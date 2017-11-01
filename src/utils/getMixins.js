@@ -1,5 +1,4 @@
-// @flow
-export default (ctor: any): Array<Object> => {
+export default (ctor) => {
   let mixins;
   if (ctor.options){
     if (!ctor.options.mixins){

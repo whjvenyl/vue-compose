@@ -17,7 +17,7 @@ test('adds a class to the base component', t => {
 });
 
 test('adds an array of classes to the base component', t => {
-  const enhanced = withClass(['classA', 'classB'], Component);
+  const enhanced = withClass(['classA', 'classB'])(Component);
   const el = mount(enhanced).$el;
 
   t.true(el.classList.contains('classA'));
@@ -29,7 +29,7 @@ test('adds conditional classes to the base component', t => {
     classA: true,
     classB: false,
     classC: true,
-  }, Component);
+  })(Component);
   const el = mount(enhanced).$el;
 
   t.true(el.classList.contains('classA'));
@@ -40,7 +40,7 @@ test('adds conditional classes to the base component', t => {
 test('adds classes from a function', t => {
   const enhanced = withClass(function(){
     return this.className;
-  }, Component);
+  })(Component);
   const el = mount(enhanced, {
     props: {
       className: 'classA'
@@ -54,7 +54,7 @@ test('adds classes from a getter', t => {
     classA: () => true,
     classB: () => false,
     classC: () => true,
-  }, Component);
+  })(Component);
   const el = mount(enhanced).$el;
 
   t.true(el.classList.contains('classA'));
@@ -71,8 +71,8 @@ test('does not overwrite original classes', t => {
 });
 
 test('can be chained to other withClasses', t => {
-  const enhanced1 = withClass('classA', Component);
-  const enhanced2 = withClass('classB', enhanced1);
+  const enhanced1 = withClass('classA')(Component);
+  const enhanced2 = withClass('classB')(enhanced1);
   const el = mount(enhanced2).$el;
 
   t.true(el.classList.contains('classA'));
@@ -81,8 +81,8 @@ test('can be chained to other withClasses', t => {
 });
 
 test('passes through parent classes', t => {
-  const enhanced1 = withClass('classA', Component);
-  const enhanced2 = withClass('classB', enhanced1);
+  const enhanced1 = withClass('classA')(Component);
+  const enhanced2 = withClass('classB')(enhanced1);
   const el = mount({
     template: '<enhanced2 class="classC"/>',
     components: {

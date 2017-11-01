@@ -1,6 +1,7 @@
 import test from 'ava';
+import sinon from 'sinon';
 import {mount} from 'vuenit';
-import {defaultProps, withProps} from 'vue-compose';
+import {defaultProps, withProps, withHooks, compose} from 'vue-compose';
 
 const Component = {
   props: ['propA', 'propB', 'propC'],
@@ -91,12 +92,12 @@ test('prop changes are still mapped', async t => {
 test('can be used in conjunction with defaultProps', t => {
   const A = withProps({
     propA: 'A'
-  }, Component);
+  })(Component);
   const B = defaultProps({
     propA: 'defaultA',
     propB: 'defaultB',
     propC: 'defaultC'
-  }, A);
+  })(A);
   const vm = mount(B);
 
   let a = vm.$findOne('#a').$text;
@@ -106,4 +107,28 @@ test('can be used in conjunction with defaultProps', t => {
   t.is(a, 'A');
   t.is(b, 'defaultB');
   t.is(c, 'defaultC');
+});
+
+test('overwrites required prop setting', t => {
+  const C = Object.assign({}, Component, {
+    props: {
+      propA: {
+        required: true,
+      },
+      propB: {
+        required: true,
+      },
+      propC: {},
+    },
+  });
+
+  const A = compose(
+    withHooks({}),
+    defaultProps({
+      propA: 'A',
+    }),
+  )(C);
+
+  t.is(A.props.propA.required, false);
+  t.is(A.props.propB.required, true);
 });

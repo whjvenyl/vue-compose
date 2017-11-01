@@ -1,16 +1,12 @@
-// @flow
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { AcceptProps } from '../annotations';
 
-const acceptProps: AcceptProps = (props, ctor) => {
+export default (props) => {
   if (typeof props === 'string'){
     props = [props];
   }
-  return createHOC(ctor, {
-    props: props,
-    name: wrapName('acceptProps', ctor),
+  return (ctor) => createHOC(ctor, {
+    props,
+    name: wrapName('acceptProps')(ctor),
   });
 };
-
-export default courier(2, acceptProps);

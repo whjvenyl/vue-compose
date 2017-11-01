@@ -25,7 +25,7 @@ test('does not prevent events bubbling up', t => {
   const spy = sinon.spy();
   const enhanced = withPassive({
     customEvent: () => {},
-  }, Component);
+  })(Component);
   const vm = mount({
     template: '<enhanced @customEvent="triggerSpy"/>',
     methods: {
@@ -47,7 +47,7 @@ test('handlers can call other handlers', t => {
     second(){
       this.handleFirst();
     }
-  }, Component);
+  })(Component);
 
   const vm = mount({
     template: '<enhanced/>',

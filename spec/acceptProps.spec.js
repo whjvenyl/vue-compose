@@ -14,7 +14,7 @@ const Component = {
 mount(Component);
 
 test('adds additional props to the component (array)', t => {
-  const A = acceptProps(['propD'], Component);
+  const A = acceptProps(['propD'])(Component);
   const B = mapProps(({propD}) => {
     return {
       propA: propD[0],
@@ -22,7 +22,7 @@ test('adds additional props to the component (array)', t => {
       propC: propD[2],
       propD: propD,
     };
-  }, A);
+  })(A);
   const vm = mount(B, {
     props: {
       propD: 'ABCDEFG'
@@ -37,7 +37,7 @@ test('adds additional props to the component (array)', t => {
 test('adds additional props to the component (object)', t => {
   const A = acceptProps({
     propD: String
-  }, Component);
+  })(Component);
   const B = mapProps(({propD}) => {
     return {
       propA: propD[0],
@@ -45,7 +45,7 @@ test('adds additional props to the component (object)', t => {
       propC: propD[2],
       propD: propD,
     };
-  }, A);
+  })(A);
   const vm = mount(B, {
     props: {
       propD: 'ABCDEFG'
@@ -58,7 +58,7 @@ test('adds additional props to the component (object)', t => {
 });
 
 test('adds additional props to the component (string)', t => {
-  const A = acceptProps('propD', Component);
+  const A = acceptProps('propD')(Component);
   const B = mapProps(({propD}) => {
     return {
       propA: propD[0],
@@ -66,7 +66,7 @@ test('adds additional props to the component (string)', t => {
       propC: propD[2],
       propD: propD,
     };
-  }, A);
+  })(A);
   const vm = mount(B, {
     props: {
       propD: 'ABCDEFG'

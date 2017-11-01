@@ -1,8 +1,4 @@
-// @flow
-import { courier } from 'vue-hoc';
-import type { SetName } from '../annotations';
-
-const setName: SetName = (name, ctor) => {
+const setName = (name) => (ctor) => {
   const target = typeof ctor === 'function' ?
     ctor.options :
     ctor;
@@ -12,7 +8,7 @@ const setName: SetName = (name, ctor) => {
   return ctor;
 };
 
-export const getName = (ctor: any) => {
+export const getName = (ctor) => {
   const target = typeof ctor === 'function' ?
     ctor.options :
     ctor;
@@ -20,9 +16,9 @@ export const getName = (ctor: any) => {
   return target.name || '';
 };
 
-export const wrapName = (name: string, ctor: any) => {
+export const wrapName = (name) => (ctor) => {
   const cname = getName(ctor) || 'Anonymous';
   return `${name}-${cname}`;
 };
 
-export default courier(2, setName);
+export default setName;

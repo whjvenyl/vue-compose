@@ -1,9 +1,7 @@
-// @flow
-import { createHOC, courier } from 'vue-hoc';
+import { createHOC } from 'vue-hoc';
 import { wrapName } from '../mutators/setName';
-import type { WithHandlers } from '../annotations';
 
-const withHandlers: WithHandlers = (handlers, ctor) => {
+const withHandlers = (handlers) => {
   const listeners = {};
   const methods = {};
 
@@ -15,12 +13,12 @@ const withHandlers: WithHandlers = (handlers, ctor) => {
     };
   });
 
-  return createHOC(ctor, {
-    name: wrapName('withHandlers', ctor),
+  return (ctor) => createHOC(ctor, {
+    name: wrapName('withHandlers')(ctor),
     methods,
   }, {
     listeners,
   });
 };
 
-export default courier(2, withHandlers);
+export default withHandlers;

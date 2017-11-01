@@ -6,7 +6,9 @@ import {
   withHandlers,
 } from 'vue-compose';
 import Vue from 'vue';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import vuex, { mapState, mapActions, mapGetters } from 'vuex';
+
+Vue.use(vuex);
 
 const C = {
   props: ['name'],
@@ -18,26 +20,29 @@ const C = {
   template: '<div><input :value="name" @change="handleChange"></div>'
 };
 
-const store = mockStore({
-  users: {
-    state: {
-      user: {
-        name: 'jim'
-      }
-    },
-    getters: {
-      userName(state){
-        return state.user.name;
-      }
-    },
-    mutations: {
-      CHANGE_NAME(state, value){
-        state.user.name = value;
-      }
-    },
-    actions: {
-      changeName({commit}, value){
-        commit('CHANGE_NAME', value);
+const store = new vuex.Store({
+  modules: {
+    users: {
+      namespaced: true,
+      state: {
+        user: {
+          name: 'jim'
+        }
+      },
+      getters: {
+        userName(state){
+          return state.user.name;
+        }
+      },
+      mutations: {
+        CHANGE_NAME(state, value){
+          state.user.name = value;
+        }
+      },
+      actions: {
+        changeName({commit}, value){
+          commit('CHANGE_NAME', value);
+        }
       }
     }
   }
