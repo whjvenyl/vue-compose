@@ -43,7 +43,6 @@ const enhanced = enhance(C);
 ```
 
 ## API
-> Note that all of these methods are curried, meaning you can call them with partial arguments and create *enahncers*. `withDefaults({}, Component)` and `withDefaults({})(Component)` are equivalent.
 
 ### HOC Creators
 The following methods will create a new HOC that wraps the provided component.
@@ -51,8 +50,7 @@ The following methods will create a new HOC that wraps the provided component.
 ```js
 (
   mapper: (props : Object) => Object,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Maps the props into a new object. Any props that are not returned will **not** be passed into the base component.
 ```js
@@ -68,8 +66,7 @@ mapProps((props) => ({
   mapper: {
     [propName: string]: Object | (props: Object) => any
   } | (props : Object) => Object,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Maps props into a new object. The returned object will be merged with the existing props.
 ```js
@@ -90,8 +87,7 @@ withProps((props) => ({
 ```js
 (
   defaults: Object,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Sets default values for any props that are currently undefined.
 ```js
@@ -104,8 +100,7 @@ defaultProps({
 ```js
 (
  props: Object | Array<string>,
- ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds additional props to the component's props option. This allows you to accept props that aren't expected by the base component.
 ```js
@@ -123,8 +118,7 @@ compose(
   listeners: {
     [handlerName: string]: (...args: Array<any>) => any
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds event listeners to the base component's `v-on` attribute.
 ```js
@@ -162,8 +156,7 @@ withHandlers({
   listeners: {
     [handlerName: string]: (...args: Array<any>) => any
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Just like `withHandlers` except the event is automatically propagated up.
 
@@ -178,8 +171,7 @@ Just like `withHandlers` except the event is automatically propagated up.
       initialValue?: any | (props: Object) => any,
     }
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Creates a stateful HOC with the specified data properties.
 ##### name
@@ -213,8 +205,7 @@ withData({
   hooks: {
     [hookName: string]: Function,
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds hooks to the component, i.e. `beforeCreate`, `created`, `mounted`, etc.
 ```js
@@ -229,8 +220,7 @@ withHooks({
 ```js
 (
   classes: any | (props: Object) => any,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds classes to the base component.
 
@@ -238,8 +228,7 @@ Adds classes to the base component.
 ```js
 (
   style: any | (props: Object) => any,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds styles to the base component.
 
@@ -251,8 +240,7 @@ Mutators don't create a new HOC, but actually **mutate** the provided component 
   computed: {
     [name: string]: Function
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds computed properties to the component.
 ```js
@@ -276,8 +264,7 @@ compose(
   methods: {
     [name: string]: Function
   },
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Adds methods to the component.
 ```js
@@ -299,8 +286,7 @@ compose(
 ```js
 (
   name: string,
-  ctor: Component
-) => Component;
+) => (Component) => Component;
 ```
 Sets the name of the component.
 
